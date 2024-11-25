@@ -61,7 +61,7 @@ public class Stadtfuehrung {
   		return this.getTitel() + trenner 
   			+ this.getIdentnummer() + trenner
   		    + this.getKurzbeschreibung() + trenner
-  		    + this.getStartzeit() + trenner + "\n"
+  		    + this.getStartzeit() + trenner 
   		    + this.getDatumAlsString(trenner) + "\n";
   	}
 }
