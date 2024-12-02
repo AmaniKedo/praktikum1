@@ -1,28 +1,27 @@
-package gui;
+package gui.guiStadtfuehrung;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
+
 import java.io.IOException;
-
-
 import business.Stadtfuehrung;
 import business.StadtfuehrungModel;
 import javafx.stage.Stage;
+import ownUtil.Observer;
 
-public class StadtfuehrungControl {
+public class StadtfuehrungControl  implements Observer{
 	
 	private StadtfuehrungModel stadtfuehrungModel;
 	private StadtfuehrungView stadtfuehrungView;
 	
-	public StadtfuehrungControl(Stage primaryStage){
-		super();
-		this.stadtfuehrungModel= new StadtfuehrungModel();
-		this.stadtfuehrungView= new StadtfuehrungView( this, stadtfuehrungModel,primaryStage );
-		
-	}
 	
+
+	public StadtfuehrungControl(Stage primStage) {
+		super();
+		this.stadtfuehrungModel=  stadtfuehrungModel.getInstanz();
+		this.stadtfuehrungView =  new StadtfuehrungView (this,stadtfuehrungModel,primStage);
+		stadtfuehrungModel.addObserver(this);
+	}
+	 
+
 	public void nehmeStadtAuf(){
     	try{
     		this.stadtfuehrungModel.setStadt(new Stadtfuehrung (
@@ -66,6 +65,15 @@ public class StadtfuehrungControl {
 			stadtfuehrungView.zeigeFehlermeldungsfensterAn(
 				"Unbekannter Fehler beim Speichern!");
 		}
+	}
+
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		stadtfuehrungView.zeigeStadtAn();
+
+		
 	}
 	
 	

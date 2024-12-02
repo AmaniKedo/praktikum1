@@ -1,4 +1,4 @@
-package gui;
+package gui.guiStadtfuehrung;
 
 
 import business.StadtfuehrungModel;
@@ -18,8 +18,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import ownUtil.MeldungsfensterAnzeiger;
+import ownUtil.Observer;
 
-public class StadtfuehrungView {
+public class StadtfuehrungView  {
 
 	
 	
@@ -141,7 +142,7 @@ public class StadtfuehrungView {
 	    btnAnzeige.setOnAction(new EventHandler<ActionEvent>() {
 	    	@Override
 	        public void handle(ActionEvent e) {
-	            zeigeBuergeraemterAn();
+	            zeigeStadtAn();
 	        } 
    	    });
 	    mnItmCsvImport.setOnAction(new EventHandler<ActionEvent>() {
@@ -167,7 +168,7 @@ public class StadtfuehrungView {
    
    
 
-   public void zeigeBuergeraemterAn(){
+   public void zeigeStadtAn(){
    	if(this.stadtfuehrungModel.getStadt() != null){
    		txtAnzeige.setText(
    			this.stadtfuehrungModel.getStadt().gibStadtZurueck(' '));
@@ -228,6 +229,7 @@ public TextField getTxtDatum() {
 public void setTxtDatum(TextField txtDatum) {
 	this.txtDatum = txtDatum;
 }
+
    
    
 

@@ -1,22 +1,40 @@
+
 package business;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
+import java.util.LinkedList;
 
 import factory.ConcreteCreatorAB;
 import factory.Creator;
 import factory.Product;
+import ownUtil.Observable;
+import ownUtil.Observer;
 
 //import gui.Stadt;
 
-public class StadtfuehrungModel {
+public class StadtfuehrungModel implements Observable{
+	
+
+	LinkedList<Observer> liste = new LinkedList<Observer>();
+	
+	private static StadtfuehrungModel instanz=null;
+	
+	public static StadtfuehrungModel getInstanz() {
+		if(instanz == null) {
+			instanz = new StadtfuehrungModel();
+		}
+		return instanz;
+	}
+	
 	
 	
    private 	Stadtfuehrung stadt;
+   
+  private StadtfuehrungModel() {
+	   
+   }
 	
    
 
@@ -27,6 +45,7 @@ public class StadtfuehrungModel {
 
 public void setStadt(Stadtfuehrung stadt) {
 	this.stadt = stadt;
+	notifyObserver();
 }
 
 	public void leseAusDatei(String typ) throws IOException{
@@ -57,6 +76,31 @@ public void setStadt(Stadtfuehrung stadt) {
 			aus.write(stadt.gibStadtZurueck(';'));
 			aus.close();
 
+	}
+
+	@Override
+	public void addObserver(Observer obs) {
+		// TODO Auto-generated method stub
+		liste.add(obs);
+		
+	}
+
+
+	@Override
+	public void removeObserver(Observer obs) {
+		// TODO Auto-generated method stub
+		liste.remove(obs);
+		
+	}
+
+
+
+	@Override
+	public void notifyObserver() {
+		// TODO Auto-generated method stub
+		for (Observer o : liste) {
+			o.update();
+		}
 	}
 
 }
